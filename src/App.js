@@ -1,25 +1,27 @@
+import { createBrowserHistory } from 'history';
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Router, Switch } from 'react-router-dom';
+import Layout from './components/includes/Layout';
+import Fabric from './components/pages/Fabric';
+import Index from './components/pages/Index';
 
 function App() {
+  const history = createBrowserHistory({
+    basename: process.env.PUBLIC_URL,
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router history={history}>
+      <Layout>
+        <Switch>
+          <Route exact path="/" component={Index} />
+          <Route exact path="/fabric" component={Fabric} />
+          {/* <Route exact path="/manage-fabric" component={Index} /> */}
+          {/* <Route exact path="/vlan-configuration" component={Index} /> */}
+          {/* <Route exact path="/ospf-configuration" component={Index} /> */}
+        </Switch>
+      </Layout>
+    </Router>
   );
 }
 
